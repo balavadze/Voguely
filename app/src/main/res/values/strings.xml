@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Voguely</string>
+    <string name="login">LogIn</string>
+    <string name="hey">Hey</string>
+    <string name="welcome_back">Welcome Back</string>
+    <string name="email">Email</string>
+    <string name="terms_conditions_apply"><![CDATA[Terms & Conditions Apply*]]></string>
+    <string name="password">Password</string>
+    <string name="sign_up">Sign Up</string>
+</resources>
