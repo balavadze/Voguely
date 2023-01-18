@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:interpolator="@android:anim/linear_interpolator"
-    tools:context=".SplashFragment">
+    tools:context=".ui.splash.SplashFragment">
 
 
     <ImageView
