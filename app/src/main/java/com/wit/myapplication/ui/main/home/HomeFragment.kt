@@ -38,7 +38,7 @@ class HomeFragment : Fragment() {
 
         lifecycleScope.launch {
             viewModel.product.collectLatest { product ->
-                adapter.data = product as MutableList<Product>
+                adapter.data = product
                 adapter.notifyDataSetChanged()
 
             }

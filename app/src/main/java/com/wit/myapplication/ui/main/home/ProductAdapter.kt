@@ -6,10 +6,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.wit.myapplication.databinding.GridViewBinding
 
-class ProductAdapter(val onImageClick: (Product) -> Unit) :
-    RecyclerView.Adapter<ProductAdapter.ItemViewHolder>() {
-    var data: MutableList<Product> = mutableListOf()
 
+class ProductAdapter(val onProductClick: (Product) -> Unit) :
+    RecyclerView.Adapter<ProductAdapter.ItemViewHolder>() {
+    var data: List<Product> = listOf()
 
     class ItemViewHolder(val binding: GridViewBinding) :
         RecyclerView.ViewHolder(binding.root)
@@ -34,9 +34,10 @@ class ProductAdapter(val onImageClick: (Product) -> Unit) :
             .load(product.productPhoto)
             .into(holder.binding.product)
         holder.itemView.setOnClickListener {
-            onImageClick(product)
+            onProductClick(product)
         }
     }
+
 
     override fun getItemCount(): Int = data.size
 }
