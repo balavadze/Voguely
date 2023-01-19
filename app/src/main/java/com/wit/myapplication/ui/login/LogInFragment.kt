@@ -25,7 +25,6 @@ class LogInFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel = ViewModelProvider(this)[LoginViewModel::class.java]
-
     }
 
 
@@ -43,21 +42,14 @@ class LogInFragment : Fragment() {
             viewModel.selectedTab.collectLatest { selectedTab -> setSelectedTabText(selectedTab) }
         }
 
-
-        // val tabLayout = binding.tabLayout
-
         binding.tabLayout.addOnTabSelectedListener(object : OnTabSelectedListener {
             override fun onTabSelected(selectedTab: TabLayout.Tab) {
                 val isLoginTabSelected = binding.tabLayout.getTabAt(0)?.isSelected ?: false
                 viewModel.onSelectedTabChanged(if (isLoginTabSelected) SelectedTab.LOGIN else SelectedTab.SIGN_UP)
             }
-
             override fun onTabReselected(tab: TabLayout.Tab?) {
-
             }
-
             override fun onTabUnselected(tab: TabLayout.Tab?) {
-
             }
         })
         binding.logInButton.setOnClickListener {
@@ -67,9 +59,8 @@ class LogInFragment : Fragment() {
 
     private fun setSelectedTabText(selectedTab: SelectedTab) {
         binding.welcome.setText(if (selectedTab == SelectedTab.LOGIN) R.string.welcome_back else R.string.join)
-        binding.logInButton.setText(if (selectedTab == SelectedTab.SIGN_UP) R.string.login else R.string.sign_up)
+        binding.logInButton.setText(if (selectedTab == SelectedTab.SIGN_UP) R.string.sign_up else R.string.login)
 
     }
-
 }
 
