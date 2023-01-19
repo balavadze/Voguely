@@ -10,6 +10,7 @@ class HomeViewModel : ViewModel() {
 
     var product = MutableStateFlow<List<Product>>(emptyList())
 
+
     init {
         loadProducts()
     }
