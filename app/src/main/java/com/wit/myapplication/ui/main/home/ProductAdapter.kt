@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.wit.myapplication.databinding.GridViewBinding
+import java.util.logging.Filter
 
 
 class ProductAdapter(val onProductClick: (Product) -> Unit) :
@@ -37,6 +38,15 @@ class ProductAdapter(val onProductClick: (Product) -> Unit) :
             onProductClick(product)
         }
     }
+
+    /*inner class searchFilter(private val adapter: ProductAdapter) : Filter(){
+        override fun performFiltering(constraint: CharSequence?): FilterResults {
+            val filteredList = products.filter { it.name.contains(constraint.toString(), true) }
+            val results = FilterResults()
+            results.values = filteredList
+            return results
+        }
+    }*/
 
 
     override fun getItemCount(): Int = data.size

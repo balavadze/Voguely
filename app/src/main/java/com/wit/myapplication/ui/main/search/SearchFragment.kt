@@ -21,6 +21,7 @@ class SearchFragment : Fragment() {
     private lateinit var viewModel: SearchViewModel
     private lateinit var binding: FragmentSearchBinding
 
+    private var products = listOf<Product>()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,6 +35,7 @@ class SearchFragment : Fragment() {
     ): View {
         binding = FragmentSearchBinding.inflate(inflater, container, false)
         return binding.root
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -41,15 +43,17 @@ class SearchFragment : Fragment() {
         binding.searchRecycler.adapter = adapter
 
 
-        lifecycleScope.launch {
 
+        lifecycleScope.launch {
             viewModel.searchedProducts.collectLatest { product ->
                 adapter.data = product
                 adapter.notifyDataSetChanged()
             }
         }
         binding.searchEditText.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+            override fun beforeTextChanged(s: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
+            }
 
             override fun onTextChanged(s: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 viewModel.search(s?.toString() ?: "")
