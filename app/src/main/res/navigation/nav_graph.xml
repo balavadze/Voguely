@@ -20,7 +20,7 @@
         android:id="@+id/logInFragment"
         android:name="com.wit.myapplication.ui.login.LogInFragment"
         android:label="fragment_log_in"
-        tools:layout="@layout/fragment_log_in" >
+        tools:layout="@layout/fragment_log_in">
         <action
             android:id="@+id/action_logInFragment_to_mainFragment"
             app:destination="@id/mainFragment" />
@@ -30,5 +30,19 @@
         android:name="com.wit.myapplication.ui.main.MainFragment"
         android:label="fragment_main"
         tools:layout="@layout/fragment_main" />
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="com.wit.myapplication.ui.main.search.SearchFragment"
+        android:label="fragment_search"
+        tools:layout="@layout/fragment_search" />
+    <fragment
+        android:id="@+id/cartFragment"
+        android:name="com.wit.myapplication.ui.main.cart.CartFragment"
+        android:label="fragment_cart"
+        tools:layout="@layout/activity_main">
+        <action
+            android:id="@+id/action_mainFragment_to_cartFragment"
+            app:destination="@+id/cartFragment" />
+    </fragment>
 
 </navigation>

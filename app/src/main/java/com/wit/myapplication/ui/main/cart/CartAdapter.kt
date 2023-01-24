@@ -4,31 +4,33 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.wit.myapplication.databinding.GridViewBinding
-import com.wit.myapplication.ui.main.home.Product
+import com.wit.myapplication.databinding.CartItemBinding
 
-class CartAdapter(val onProductClick: (Product) -> Unit) :
+
+class CartAdapter(val onCartItemClick: (CartItems) -> Unit) :
     RecyclerView.Adapter<CartAdapter.ItemViewHolder>() {
-    var data: List<Product> = listOf()
+    var cartData: List<CartItems> = listOf()
 
-    class ItemViewHolder(val binding: GridViewBinding) : RecyclerView.ViewHolder(binding.root)
+    class ItemViewHolder(val binding: CartItemBinding) : RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CartAdapter.ItemViewHolder {
-        val binding = GridViewBinding.inflate(
+        val binding = CartItemBinding.inflate(
             LayoutInflater.from(parent.context), parent, false
         )
         return CartAdapter.ItemViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: CartAdapter.ItemViewHolder, position: Int) {
-        val product = data.get(position)
-        holder.binding.productDescription.text = product.productDescription
-        holder.binding.productPrice.text = product.price
-        Glide.with(holder.itemView.context).load(product.productPhoto).into(holder.binding.product)
+        val cartItems = cartData[position]
+        holder.binding.cartDescription.text = cartItems.cartDescription
+        holder.binding.cartPrice.text = cartItems.cartPrice
+        holder.binding.cartAmount.text = cartItems.amount
+        Glide.with(holder.itemView.context).load(cartItems.cartPhoto)
+            .into(holder.binding.cartProduct)
         holder.itemView.setOnClickListener {
-            onProductClick(product)
+            onCartItemClick(cartItems)
         }
     }
 
-    override fun getItemCount(): Int = data.size
+    override fun getItemCount(): Int = cartData.size
 }

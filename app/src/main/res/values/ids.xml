@@ -2,4 +2,6 @@
 <resources>
     <item name="tab_layout" type="id" />
     <item name="totalPrice" type="id" />
+    <item name="ribbon" type="id" />
+    <item name="cartRibbon" type="id" />
 </resources>

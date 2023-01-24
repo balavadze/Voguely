@@ -6,8 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import com.wit.myapplication.databinding.FragmentCartBinding
-import com.wit.myapplication.ui.main.home.Product
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 class CartFragment : Fragment() {
 
@@ -15,11 +17,11 @@ class CartFragment : Fragment() {
     private lateinit var viewModel: CartViewModel
     private lateinit var binding: FragmentCartBinding
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel = ViewModelProvider(this)[CartViewModel::class.java]
     }
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,11 +33,31 @@ class CartFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.cartRecycler.adapter = adapter
+        binding.cartItem.adapter = adapter
+
+        lifecycleScope.launch {
+            viewModel.cartProducts.collectLatest { cart: List<CartItems> ->
+                adapter.cartData = cart
+                adapter.notifyDataSetChanged()
+                if (cart.isEmpty()) {
+                    //TODO uncomment this line after data is added
+                    // binding.emptyCart.visibility = View.VISIBLE
+                }
+                else {
+                    binding.cartItem.visibility = View.VISIBLE
+                    binding.cartRibbon.visibility = View.VISIBLE
+                    binding.emptyCart.visibility = View.GONE
+                    // update cart
+                    // viewModel.updateCart()
+                }
+
+            }
+        }
     }
 
-    private fun cart(product: Product) {
+    private fun cart(cartItems: CartItems) {
+/*        Cart.removeProduct(product)
+        viewModel.updateCart()*/
     }
-
 
 }

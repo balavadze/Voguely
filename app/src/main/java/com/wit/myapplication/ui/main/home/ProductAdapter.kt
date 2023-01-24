@@ -1,11 +1,11 @@
 package com.wit.myapplication.ui.main.home
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.wit.myapplication.databinding.GridViewBinding
-import java.util.logging.Filter
 
 
 class ProductAdapter(val onProductClick: (Product) -> Unit) :
@@ -36,8 +36,11 @@ class ProductAdapter(val onProductClick: (Product) -> Unit) :
             .into(holder.binding.product)
         holder.itemView.setOnClickListener {
             onProductClick(product)
+            Log.d("TAG", "onProductClick called for product: ${product.productDescription}")
+
         }
     }
+
 
     /*inner class searchFilter(private val adapter: ProductAdapter) : Filter(){
         override fun performFiltering(constraint: CharSequence?): FilterResults {

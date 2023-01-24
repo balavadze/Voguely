@@ -112,5 +112,9 @@ class HomeViewModel : ViewModel() {
         return product
     }
 
+    fun updateCart() {
+
+    }
+
 }
 

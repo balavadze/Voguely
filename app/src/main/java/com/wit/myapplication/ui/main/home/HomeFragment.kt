@@ -1,9 +1,9 @@
 package com.wit.myapplication.ui.main.home
-
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
@@ -12,10 +12,10 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 class HomeFragment : Fragment() {
-
     private val adapter = ProductAdapter(::product)
-
     private lateinit var viewModel: HomeViewModel
+
+    // private lateinit var viewModel: HomeViewModel
     private lateinit var binding: FragmentHomeBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,18 +35,21 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.recyclerView.adapter = adapter
 
-
         lifecycleScope.launch {
             viewModel.product.collectLatest { product ->
                 adapter.data = product
                 adapter.notifyDataSetChanged()
-
             }
         }
+
 
     }
 
     private fun product(product: Product) {
+        //add product to cart
+        // cart.addProduct(product)
+        Toast.makeText(context, "Now, you have to pay^^", Toast.LENGTH_SHORT).show()
+        viewModel.updateCart()
     }
 
 
