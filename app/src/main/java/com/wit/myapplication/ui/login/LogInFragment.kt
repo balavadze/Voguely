@@ -11,6 +11,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
+import com.google.firebase.auth.FirebaseAuth
 import com.wit.myapplication.R
 import com.wit.myapplication.databinding.FragmentLogInBinding
 import kotlinx.coroutines.flow.collectLatest
@@ -20,11 +21,13 @@ import kotlinx.coroutines.launch
 class LogInFragment : Fragment() {
     private lateinit var binding: FragmentLogInBinding
     private lateinit var viewModel: LoginViewModel
+    private lateinit var auth: FirebaseAuth
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel = ViewModelProvider(this)[LoginViewModel::class.java]
+
     }
 
 
@@ -36,8 +39,10 @@ class LogInFragment : Fragment() {
         return binding.root
     }
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        auth = FirebaseAuth.getInstance()
         lifecycleScope.launch {
             viewModel.selectedTab.collectLatest { selectedTab -> setSelectedTabText(selectedTab) }
         }
@@ -47,20 +52,58 @@ class LogInFragment : Fragment() {
                 val isLoginTabSelected = binding.tabLayout.getTabAt(0)?.isSelected ?: false
                 viewModel.onSelectedTabChanged(if (isLoginTabSelected) SelectedTab.LOGIN else SelectedTab.SIGN_UP)
             }
+
             override fun onTabReselected(tab: TabLayout.Tab?) {
             }
+
             override fun onTabUnselected(tab: TabLayout.Tab?) {
             }
         })
+
+
         binding.logInButton.setOnClickListener {
-            findNavController().navigate(R.id.action_logInFragment_to_mainFragment)
+            //TODO in case you need to enter app without authentication
+            //  findNavController().navigate(R.id.action_logInFragment_to_mainFragment)
+            val email = binding.editEmail.text.toString()
+            val password = binding.editPassword.text.toString()
+
+            val isLoginTabSelected = binding.tabLayout.getTabAt(0)?.isSelected ?: false
+            if (isLoginTabSelected) {
+                auth.signInWithEmailAndPassword(email, password)
+                    .addOnCompleteListener { task ->
+                        if (task.isSuccessful) {
+                            //TODO here navigation component but, user specified ???
+                            findNavController().navigate(R.id.action_logInFragment_to_mainFragment)
+                        }
+                        else {
+                            // TODO SOME MESSAGE OR SCREEN TRY AGAIN
+                        }
+                    }
+            }
+            else {
+                auth.createUserWithEmailAndPassword(email, password)
+                    .addOnCompleteListener { task ->
+                        if (task.isSuccessful) {
+                            //TODO UI TO MAIN SCREEN
+                            findNavController().navigate(R.id.action_logInFragment_to_mainFragment)
+                        }
+                        else {
+
+                        }
+                    }
+            }
+
+
         }
+
     }
 
     private fun setSelectedTabText(selectedTab: SelectedTab) {
         binding.welcome.setText(if (selectedTab == SelectedTab.LOGIN) R.string.welcome_back else R.string.join)
         binding.logInButton.setText(if (selectedTab == SelectedTab.SIGN_UP) R.string.sign_up else R.string.login)
-
     }
 }
+
+
+
 
