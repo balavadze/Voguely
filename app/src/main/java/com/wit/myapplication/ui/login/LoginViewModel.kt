@@ -2,13 +2,26 @@ package com.wit.myapplication.ui.login
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.google.firebase.auth.*
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.tasks.await
 
 
 class LoginViewModel : ViewModel() {
+    private val auth = FirebaseAuth.getInstance()
+
+    val _event = MutableSharedFlow<LoginEvent>()
+
+    // private val _errorMessage = MutableStateFlow("")
+    // val errorMessage: StateFlow<String> = _errorMessage.asStateFlow()
+
+    /*   private val _loginSuccessEvent = MutableStateFlow(false)
+     val loginSuccessEvent: StateFlow<Boolean> = _loginSuccessEvent.asStateFlow()*/
+
     private val _selectedTab = MutableStateFlow(SelectedTab.LOGIN)
     val selectedTab: StateFlow<SelectedTab> = _selectedTab.asStateFlow()
 
@@ -17,5 +30,49 @@ class LoginViewModel : ViewModel() {
             _selectedTab.value = selectedTab
 
         }
+    }
+
+    fun onButtonClick(email: String, password: String) {
+        viewModelScope.launch {
+            when (selectedTab.value) {
+                SelectedTab.LOGIN -> logIn(email, password)
+                SelectedTab.SIGN_UP -> signUp(email, password)
+            }
+        }
+    }
+
+    private fun logIn(email: String, password: String) {
+        viewModelScope.launch {
+            try {
+                auth.signInWithEmailAndPassword(email, password).await()
+                _event.emit(LoginEvent.LogInSuccess)
+/*                _loginSuccessEvent.value = true*/
+            } catch (e: FirebaseAuthInvalidUserException) {
+                _event.emit(LoginEvent.LoginError("User does not exist"))
+            } catch (e: FirebaseAuthInvalidCredentialsException) {
+                _event.emit(LoginEvent.LoginError("Invalid email or password"))
+            } catch (e: Exception) {
+                _event.emit(LoginEvent.LoginError("An error occurred, please try again"))
+            }
+        }
+    }
+
+    private fun signUp(email: String, password: String) {
+        viewModelScope.launch {
+            try {
+                auth.createUserWithEmailAndPassword(email, password).await()
+                _event.emit(LoginEvent.LogInSuccess)
+                /*_loginSuccessEvent.value = true*/
+            } catch (e: FirebaseAuthWeakPasswordException) {
+                _event.emit(LoginEvent.LoginError("Password should be at least 6 characters"))
+            } catch (e: FirebaseAuthInvalidCredentialsException) {
+                _event.emit(LoginEvent.LoginError("Invalid email address"))
+            } catch (e: FirebaseAuthUserCollisionException) {
+                _event.emit(LoginEvent.LoginError("User with this email already exists"))
+            } catch (e: Exception) {
+                _event.emit(LoginEvent.LoginError("An error occurred, please try again"))
+            }
+        }
+
     }
 }
