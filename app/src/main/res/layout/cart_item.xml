@@ -1,29 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/cartItem"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="8dp">
+    android:layout_margin="2dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="20dp">
+        android:padding="15dp">
 
         <ImageView
             android:id="@+id/cartProduct"
-            android:layout_width="match_parent"
-            android:layout_height="160dp"
+            android:layout_width="140dp"
+            android:layout_height="140dp"
             android:clickable="true"
-            android:scaleType="centerCrop" />
+            android:scaleType="centerCrop"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/cartDescription"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+
             android:textColor="@color/black"
             android:textSize="18sp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/cartProduct"
+            app:layout_constraintTop_toBottomOf="@id/remove"
             android:textStyle="bold" />
 
         <TextView
@@ -31,7 +40,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
+            android:layout_marginLeft="8dp"
             android:textColor="@color/vivid_red_tangelo"
+            app:layout_constraintEnd_toEndOf="@id/cartDescription"
+            app:layout_constraintStart_toEndOf="@+id/cartProduct"
+            app:layout_constraintTop_toBottomOf="@id/cartDescription"
             android:textSize="15sp" />
 
         <TextView
@@ -40,13 +53,21 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:textColor="@color/vivid_red_tangelo"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/cartProduct"
+            app:layout_constraintTop_toBottomOf="@id/cartPrice"
             android:textSize="15sp" />
 
         <ImageView
             android:id="@+id/remove"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="remove" />
+            android:src="@drawable/baseline_cancel_24"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+
+            tools:layout_editor_absoluteX="330dp"
+            tools:layout_editor_absoluteY="4dp" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
