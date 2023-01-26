@@ -20,7 +20,6 @@ class SearchFragment : Fragment() {
     private lateinit var viewModel: SearchViewModel
     private lateinit var binding: FragmentSearchBinding
 
-    private var products = listOf<Product>()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,12 +43,12 @@ class SearchFragment : Fragment() {
                 adapter.data = product
 
                 adapter.notifyDataSetChanged()
-                if (product.isEmpty()) {
+              /*  if (product.isEmpty()) {
 
                 } else {
                     binding.searchRecycler.visibility = View.VISIBLE
                     binding.noResults.visibility = View.GONE
-                }
+                }*/
             }
         }
 
@@ -71,12 +70,18 @@ class SearchFragment : Fragment() {
                     if (!found) {
                         binding.searchRecycler.visibility = View.GONE
                         binding.noResults.visibility = View.VISIBLE
-                    } else {
+                    }
+                    else {
                         binding.searchRecycler.visibility = View.VISIBLE
                         binding.noResults.visibility = View.GONE
                     }
                 }
-            }
+                else {
+                    binding.searchRecycler.visibility = View.GONE
+                    binding.noResults.visibility = View.GONE
+                }
+                }
+
 
             override fun afterTextChanged(p0: Editable?) {
 
