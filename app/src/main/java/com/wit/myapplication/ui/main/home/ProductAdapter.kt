@@ -26,17 +26,18 @@ class ProductAdapter(val onProductClick: (Product) -> Unit) :
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         val product = data.get(position)
-        holder.binding.productDescription.text = product.productDescription
-        holder.binding.productPrice.text = product.price
-        holder.binding.productRating.text = product.rating
-        holder.binding.productReview.text = product.review
+        holder.binding.productDescription.text = product.name
+        holder.binding.productPrice.text = product.price.toString()
+
+        holder.binding.productRating.text = product.rating.toString()
+        holder.binding.productReview.text = product.reviews.toString()
 
         Glide.with(holder.itemView.context)
-            .load(product.productPhoto)
+            .load(product.image)
             .into(holder.binding.product)
         holder.itemView.setOnClickListener {
             onProductClick(product)
-            Log.d("TAG", "onProductClick called for product: ${product.productDescription}")
+            Log.d("TAG", "onProductClick called for product: ${product.name}")
 
         }
     }

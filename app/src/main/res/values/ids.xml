@@ -4,4 +4,5 @@
     <item name="totalPrice" type="id" />
     <item name="ribbon" type="id" />
     <item name="cartRibbon" type="id" />
+    <item name="progressBar" type="id" />
 </resources>

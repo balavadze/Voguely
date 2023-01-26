@@ -63,7 +63,7 @@ class SearchFragment : Fragment() {
                     viewModel.search(s.toString())
                     var found = false
                     for (product in adapter.data) {
-                        if (product.productDescription.contains(s.toString(), ignoreCase = true)) {
+                        if (product.name.contains(s.toString(), ignoreCase = true)) {
                             found = true
                             break
                         }
