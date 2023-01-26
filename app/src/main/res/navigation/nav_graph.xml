@@ -37,7 +37,16 @@
         android:id="@+id/mainFragment"
         android:name="com.wit.myapplication.ui.main.MainFragment"
         android:label="fragment_main"
-        tools:layout="@layout/fragment_main" />
+        tools:layout="@layout/fragment_main">
+        <action
+            android:id="@+id/action_mainFragment_to_productDetailsFragment"
+            app:destination="@id/productDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/productDetailsFragment"
+        android:name="com.wit.myapplication.ui.productdetails.ProductDetailsFragment"
+        android:label="ProductDetailsFragment"
+        tools:layout="@layout/product_details" />
 
 
 </navigation>

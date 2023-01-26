@@ -20,7 +20,6 @@ class HomeViewModel : ViewModel() {
         viewModelScope.launch {
             product.update { productsDataSource.getProducts() }
 
-
         }
     }
 
@@ -32,9 +31,7 @@ class HomeViewModel : ViewModel() {
         return product
     }
 
-    fun updateCart() {
 
-    }
 
 }
 

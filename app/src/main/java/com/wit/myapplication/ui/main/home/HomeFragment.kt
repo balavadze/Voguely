@@ -3,19 +3,21 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
+import com.wit.myapplication.R
 import com.wit.myapplication.databinding.FragmentHomeBinding
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
-class HomeFragment : Fragment() {
-    private val adapter = ProductAdapter(::product)
-    private lateinit var viewModel: HomeViewModel
 
-    // private lateinit var viewModel: HomeViewModel
+class HomeFragment : Fragment() {
+
+
+    private val adapter = ProductAdapter(::onProductClick)
+    private lateinit var viewModel: HomeViewModel
     private lateinit var binding: FragmentHomeBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,6 +31,7 @@ class HomeFragment : Fragment() {
     ): View? {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
         return binding.root
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -42,14 +45,16 @@ class HomeFragment : Fragment() {
             }
         }
 
-
     }
 
-    private fun product(product: Product) {
-        //add product to cart
-        // cart.addProduct(product)
-        Toast.makeText(context, "Now, you have to pay^^", Toast.LENGTH_SHORT).show()
-        viewModel.updateCart()
+    private fun onProductClick(product: Product) {
+        val bundle = Bundle().apply {
+            putString("PRODUCT_ID_ARG", product.id)
+        }
+        parentFragment
+            ?.parentFragment
+            ?.findNavController()
+            ?.navigate(R.id.action_mainFragment_to_productDetailsFragment, bundle)
     }
 
 

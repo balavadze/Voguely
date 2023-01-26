@@ -43,16 +43,6 @@ class ProductAdapter(val onProductClick: (Product) -> Unit) :
     }
 
 
-    /*inner class searchFilter(private val adapter: ProductAdapter) : Filter(){
-        override fun performFiltering(constraint: CharSequence?): FilterResults {
-            val filteredList = products.filter { it.name.contains(constraint.toString(), true) }
-            val results = FilterResults()
-            results.values = filteredList
-            return results
-        }
-    }*/
-
-
     override fun getItemCount(): Int = data.size
 }
 
