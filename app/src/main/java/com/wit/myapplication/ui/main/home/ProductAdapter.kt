@@ -2,13 +2,17 @@ package com.wit.myapplication.ui.main.home
 
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.wit.myapplication.databinding.GridViewBinding
 
 
-class ProductAdapter(val onProductClick: (Product) -> Unit) :
+class ProductAdapter(
+    val onProductClick: (Product) -> Unit,
+    var onDotsClick: (Product, View) -> Unit
+) :
     RecyclerView.Adapter<ProductAdapter.ItemViewHolder>() {
     var data: List<Product> = listOf()
 
@@ -28,17 +32,15 @@ class ProductAdapter(val onProductClick: (Product) -> Unit) :
         val product = data.get(position)
         holder.binding.productDescription.text = product.name
         holder.binding.productPrice.text = product.price.toString()
-
         holder.binding.productRating.text = product.rating.toString()
         holder.binding.productReview.text = product.reviews.toString()
-
+        holder.binding.dots.setOnClickListener { onDotsClick(product, it) }
         Glide.with(holder.itemView.context)
             .load(product.image)
             .into(holder.binding.product)
         holder.itemView.setOnClickListener {
             onProductClick(product)
             Log.d("TAG", "onProductClick called for product: ${product.name}")
-
         }
     }
 

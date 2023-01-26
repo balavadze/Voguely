@@ -38,6 +38,7 @@ class SearchViewModel : ViewModel() {
             _noResults.update {
                 products.isEmpty()
             }
+
         }
     }
 }
