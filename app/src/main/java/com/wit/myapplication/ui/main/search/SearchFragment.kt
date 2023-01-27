@@ -24,7 +24,6 @@ class SearchFragment : Fragment() {
     private lateinit var binding: FragmentSearchBinding
 
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel = ViewModelProvider(this)[SearchViewModel::class.java]
@@ -46,7 +45,7 @@ class SearchFragment : Fragment() {
                 adapter.data = product
 
                 adapter.notifyDataSetChanged()
-              /*  if (product.isEmpty()) {
+                /*  if (product.isEmpty()) {
 
                 } else {
                     binding.searchRecycler.visibility = View.VISIBLE
@@ -107,6 +106,11 @@ class SearchFragment : Fragment() {
         val inflater = popupMenu.menuInflater
         inflater.inflate(R.menu.popup, popupMenu.menu)
         popupMenu.show()
-    }
+        popupMenu.setOnMenuItemClickListener {
+            viewModel.addToCart(product.id)
+            return@setOnMenuItemClickListener false
 
+        }
+
+    }
 }

@@ -7,6 +7,7 @@ import android.widget.PopupMenu
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.wit.myapplication.R
 import com.wit.myapplication.databinding.FragmentHomeBinding
 import com.wit.myapplication.model.Product
@@ -14,7 +15,7 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 class HomeFragment : Fragment() {
-    private val adapter = ProductAdapter(::product, ::onDotsClick)
+    private val adapter = ProductAdapter(::onProductClick, ::onDotsClick)
     private lateinit var viewModel: HomeViewModel
     private lateinit var binding: FragmentHomeBinding
 
@@ -51,10 +52,23 @@ class HomeFragment : Fragment() {
         val inflater = popupMenu.menuInflater
         inflater.inflate(R.menu.popup, popupMenu.menu)
         popupMenu.show()
+        popupMenu.setOnMenuItemClickListener {
+            viewModel.addToCart(product.id)
+            return@setOnMenuItemClickListener false
+
+        }
+
     }
 
-    private fun product(product: Product) {
 
+    private fun onProductClick(product: Product) {
+        val bundle = Bundle().apply {
+            putString("PRODUCT_ID_ARG", product.id)
+        }
+        parentFragment
+            ?.parentFragment
+            ?.findNavController()
+            ?.navigate(R.id.action_mainFragment_to_productDetailsFragment, bundle)
     }
 
 }
