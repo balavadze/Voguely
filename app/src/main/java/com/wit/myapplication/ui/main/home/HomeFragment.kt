@@ -9,6 +9,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.wit.myapplication.R
 import com.wit.myapplication.databinding.FragmentHomeBinding
+import com.wit.myapplication.model.Product
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -56,7 +57,6 @@ class HomeFragment : Fragment() {
             ?.findNavController()
             ?.navigate(R.id.action_mainFragment_to_productDetailsFragment, bundle)
     }
-
 
 }
 

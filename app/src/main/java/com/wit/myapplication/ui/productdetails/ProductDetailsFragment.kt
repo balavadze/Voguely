@@ -9,7 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
 import com.wit.myapplication.databinding.ProductDetailsBinding
-import com.wit.myapplication.ui.main.home.Product
+import com.wit.myapplication.model.Product
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -48,6 +48,10 @@ class ProductDetailsFragment : Fragment() {
                         .into(binding.productImage)
                 }
             }
+        }
+
+        binding.addToCartButton.setOnClickListener {
+            viewModel.addToCart()
         }
     }
 

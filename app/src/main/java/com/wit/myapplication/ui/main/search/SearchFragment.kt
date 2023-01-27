@@ -10,7 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.wit.myapplication.databinding.FragmentSearchBinding
-import com.wit.myapplication.ui.main.home.Product
+import com.wit.myapplication.model.Product
 import com.wit.myapplication.ui.main.home.ProductAdapter
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch

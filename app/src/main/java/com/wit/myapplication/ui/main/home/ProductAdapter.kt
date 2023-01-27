@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.wit.myapplication.databinding.GridViewBinding
+import com.wit.myapplication.model.Product
 
 
 class ProductAdapter(val onProductClick: (Product) -> Unit) :

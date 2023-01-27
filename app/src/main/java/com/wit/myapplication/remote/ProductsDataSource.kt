@@ -2,7 +2,7 @@ package com.wit.myapplication.remote
 
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
-import com.wit.myapplication.ui.main.home.Product
+import com.wit.myapplication.model.Product
 import kotlinx.coroutines.tasks.await
 
 class ProductsDataSource {

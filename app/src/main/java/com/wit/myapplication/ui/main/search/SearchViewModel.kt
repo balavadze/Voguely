@@ -2,7 +2,7 @@ package com.wit.myapplication.ui.main.search
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.wit.myapplication.ui.main.home.Product
+import com.wit.myapplication.model.Product
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
