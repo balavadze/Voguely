@@ -19,4 +19,6 @@
     <string name="_4_6">4.6</string>
     <string name="product_image">product image</string>
     <string name="remove">remove</string>
+    <string name="toolbarleft">Home</string>
+    <string name="sign_out">sign out</string>
 </resources>
