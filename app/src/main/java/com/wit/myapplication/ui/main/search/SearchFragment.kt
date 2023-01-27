@@ -6,9 +6,12 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.PopupMenu
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
+import com.wit.myapplication.R
 import com.wit.myapplication.databinding.FragmentSearchBinding
 import com.wit.myapplication.model.Product
 import com.wit.myapplication.ui.main.home.ProductAdapter
@@ -16,11 +19,10 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 class SearchFragment : Fragment() {
-    private val adapter = ProductAdapter(::product)
+    private val adapter = ProductAdapter(::onProductClick, ::onDotsClick)
     private lateinit var viewModel: SearchViewModel
     private lateinit var binding: FragmentSearchBinding
 
-    private var products = listOf<Product>()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,12 +46,12 @@ class SearchFragment : Fragment() {
                 adapter.data = product
 
                 adapter.notifyDataSetChanged()
-                if (product.isEmpty()) {
+              /*  if (product.isEmpty()) {
 
                 } else {
                     binding.searchRecycler.visibility = View.VISIBLE
                     binding.noResults.visibility = View.GONE
-                }
+                }*/
             }
         }
 
@@ -71,10 +73,15 @@ class SearchFragment : Fragment() {
                     if (!found) {
                         binding.searchRecycler.visibility = View.GONE
                         binding.noResults.visibility = View.VISIBLE
-                    } else {
+                    }
+                    else {
                         binding.searchRecycler.visibility = View.VISIBLE
                         binding.noResults.visibility = View.GONE
                     }
+                }
+                else {
+                    binding.searchRecycler.visibility = View.GONE
+                    binding.noResults.visibility = View.GONE
                 }
             }
 
@@ -85,8 +92,21 @@ class SearchFragment : Fragment() {
 
     }
 
-    private fun product(product: Product) {
+    private fun onProductClick(product: Product) {
+        val bundle = Bundle().apply {
+            putString("PRODUCT_ID_ARG", product.id)
+        }
+        parentFragment
+            ?.parentFragment
+            ?.findNavController()
+            ?.navigate(R.id.action_mainFragment_to_productDetailsFragment, bundle)
     }
 
+    private fun onDotsClick(product: Product, view: View) {
+        val popupMenu = PopupMenu(requireContext(), view)
+        val inflater = popupMenu.menuInflater
+        inflater.inflate(R.menu.popup, popupMenu.menu)
+        popupMenu.show()
+    }
 
 }
