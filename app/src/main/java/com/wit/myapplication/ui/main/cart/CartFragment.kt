@@ -36,7 +36,7 @@ class CartFragment : Fragment() {
         binding.cartItem.adapter = adapter
 
         lifecycleScope.launch {
-            viewModel.cartProducts.collectLatest { cart: List<CartItems> ->
+            viewModel.cartProducts.collectLatest { cart: List<Cart> ->
                 adapter.cartData = cart
                 adapter.notifyDataSetChanged()
                 if (cart.isEmpty()) {
@@ -55,7 +55,7 @@ class CartFragment : Fragment() {
         }
     }
 
-    private fun cart(cartItems: CartItems) {
+    private fun cart(cartItems: Cart) {
 /*        Cart.removeProduct(product)
         viewModel.updateCart()*/
     }

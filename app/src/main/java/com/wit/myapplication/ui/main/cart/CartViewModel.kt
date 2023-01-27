@@ -7,7 +7,7 @@ import kotlinx.coroutines.launch
 
 
 class CartViewModel : ViewModel() {
-    val cartProducts = MutableStateFlow<List<CartItems>>(emptyList())
+    val cartProducts = MutableStateFlow<List<Cart>>(emptyList())
 
     init {
         loadCart()
@@ -15,7 +15,7 @@ class CartViewModel : ViewModel() {
 
     private fun loadCart() {
         viewModelScope.launch() {
-            val mockCartItems: List<CartItems>
+            val mockCartItems: List<Cart>
 
 
             /*listOf(
@@ -63,8 +63,8 @@ class CartViewModel : ViewModel() {
         }
     }
 
-    fun fetchCart(): MutableList<CartItems> {
-        val cartItems: MutableList<CartItems> = mutableListOf<CartItems>()
+    fun fetchCart(): MutableList<Cart> {
+        val cartItems: MutableList<Cart> = mutableListOf<Cart>()
         viewModelScope.launch {
 
         }

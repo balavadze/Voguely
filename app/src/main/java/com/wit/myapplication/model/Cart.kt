@@ -1,12 +1,12 @@
 package com.wit.myapplication.ui.main.cart
 
+import com.wit.myapplication.model.CartResponse
 
-data class CartItems(
-    val cartPhoto: String,
-    val cartDescription: String,
-    val cartPrice: String,
-    val amount: String,
-    val remove: String,
+
+data class Cart(
+    val key: String,
+    val cartResponse: CartResponse
+
 )
 /*
 

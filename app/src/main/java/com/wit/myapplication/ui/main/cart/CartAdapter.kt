@@ -3,13 +3,12 @@ package com.wit.myapplication.ui.main.cart
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.wit.myapplication.databinding.CartItemBinding
 
 
-class CartAdapter(val onCartItemClick: (CartItems) -> Unit) :
+class CartAdapter(val onCartItemClick: (Cart) -> Unit) :
     RecyclerView.Adapter<CartAdapter.ItemViewHolder>() {
-    var cartData: List<CartItems> = listOf()
+    var cartData: List<Cart> = listOf()
 
     class ItemViewHolder(val binding: CartItemBinding) : RecyclerView.ViewHolder(binding.root)
 
@@ -22,14 +21,14 @@ class CartAdapter(val onCartItemClick: (CartItems) -> Unit) :
 
     override fun onBindViewHolder(holder: CartAdapter.ItemViewHolder, position: Int) {
         val cartItems = cartData[position]
-        holder.binding.cartDescription.text = cartItems.cartDescription
+       /* holder.binding.cartDescription.text = cartItems.cartDescription
         holder.binding.cartPrice.text = cartItems.cartPrice
         holder.binding.cartAmount.text = cartItems.amount
         Glide.with(holder.itemView.context).load(cartItems.cartPhoto)
             .into(holder.binding.cartProduct)
         holder.itemView.setOnClickListener {
             onCartItemClick(cartItems)
-        }
+        }*/
     }
 
     override fun getItemCount(): Int = cartData.size
