@@ -19,4 +19,7 @@
     <string name="_4_6">4.6</string>
     <string name="product_image">product image</string>
     <string name="remove">remove</string>
+    <string name="cart_is_empty">Cart is Empty</string>
+    <string name="total_price">Total Price:</string>
+    <string name="buy">buy</string>
 </resources>
