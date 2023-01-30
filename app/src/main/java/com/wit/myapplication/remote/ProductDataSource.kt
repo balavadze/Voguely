@@ -14,8 +14,6 @@ class ProductDataSource {
                 .get()
                 .await()
 
-
-
         return result.getValue(Product::class.java)
     }
 

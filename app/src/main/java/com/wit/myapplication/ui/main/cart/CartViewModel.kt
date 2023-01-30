@@ -1,12 +1,13 @@
 package com.wit.myapplication.ui.main.cart
 
+import DeleteFromCartDataSource
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.wit.myapplication.model.Other
-import com.wit.myapplication.remote.DeleteCartDataSource
 import com.wit.myapplication.remote.GetCartDataSource
 import com.wit.myapplication.remote.RemoveFromCartDataSource
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
@@ -22,13 +23,8 @@ class CartViewModel : ViewModel() {
 
     private val getCartDataSource = GetCartDataSource()
 
-    private val deleteCartDataSource = DeleteCartDataSource()
+    private val deleteCartDataSource = DeleteFromCartDataSource()
     private val removeFromCartDataSource = RemoveFromCartDataSource()
-
-
-
-
-
 
 
     fun loadCartItems() {
@@ -43,5 +39,11 @@ class CartViewModel : ViewModel() {
         val getTotalPrice = other.sumBy { it.quantity * it.product.price }
         Log.d("CartViewModel", "Total price: $getTotalPrice")
         return getTotalPrice
+    }
+
+    fun delete(productId: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            deleteCartDataSource.deleteProductFromCart(productId)
+        }
     }
 }

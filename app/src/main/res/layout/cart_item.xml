@@ -35,7 +35,7 @@
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintStart_toEndOf="@id/cartProduct"
-            app:layout_constraintTop_toBottomOf="@id/remove" />
+            app:layout_constraintTop_toBottomOf="@id/deleteButton" />
 
         <TextView
             android:id="@+id/cartPrice"
@@ -62,13 +62,14 @@
             app:layout_constraintTop_toBottomOf="@id/cartPrice" />
 
         <ImageView
-            android:id="@+id/remove"
+            android:id="@+id/deleteButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/baseline_cancel_24"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:layout_editor_absoluteX="330dp"
+            android:clickable="true"
             tools:layout_editor_absoluteY="4dp" />
 
 
