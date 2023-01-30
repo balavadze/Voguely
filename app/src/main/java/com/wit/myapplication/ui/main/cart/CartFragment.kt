@@ -46,7 +46,7 @@ class CartFragment : Fragment() {
                 if (cart.isNotEmpty()) {
                     binding.cartItem.visibility = View.VISIBLE
                     binding.cartRibbon.visibility = View.VISIBLE
-                    binding.sumPrice.text = viewModel.getTotalPrice(cart).toString()
+                    binding.sumPrice.text = "EUR  " + viewModel.getTotalPrice(cart).toString()
                     binding.emptyCart.visibility = View.GONE
 
                 }
