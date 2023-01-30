@@ -1,17 +1,22 @@
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.wit.myapplication.databinding.CartItemBinding
-import com.wit.myapplication.model.Cart
 import com.wit.myapplication.model.Other
-import kotlin.reflect.KFunction1
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
-class CartAdapter(val onCartItemClick: KFunction1<Cart, Unit>) :
+class CartAdapter(
+    val onCartItemClick: (Other) -> Unit,
+    // val onDeleteButtonClick: (Other) -> Unit,
+) :
     RecyclerView.Adapter<CartAdapter.ItemViewHolder>() {
     var cartData: List<Other> = listOf()
-    var totalPrice: Double = 0.0
 
     class ItemViewHolder(val binding: CartItemBinding) : RecyclerView.ViewHolder(binding.root)
 
@@ -29,11 +34,22 @@ class CartAdapter(val onCartItemClick: KFunction1<Cart, Unit>) :
             holder.binding.cartDescription.text = fireData.product.name.toString()
             holder.binding.cartPrice.text = "EUR  " + fireData.product.price.toString()
             holder.binding.cartAmount.text = "x " + fireData.quantity.toString()
+            holder.binding.deleteButton.setOnClickListener {
+                Log.d("CartAdapter", "Delete button clicked")
+                GlobalScope.launch(Dispatchers.IO) {
+                    DeleteFromCartDataSource().deleteProductFromCart(productId = fireData.product.id)
+                    withContext(Dispatchers.Main) {
+                        cartData = cartData.filter { it.product.id != fireData.product.id }
+                        notifyDataSetChanged()
+                    }
+                }
+            }
             Glide.with(holder.itemView.context)
                 .load(cartItems.product.image)
                 .into(holder.binding.cartProduct)
         }
     }
+
 
     override fun getItemCount(): Int = cartData.size
 }

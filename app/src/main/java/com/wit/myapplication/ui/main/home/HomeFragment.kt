@@ -36,8 +36,6 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.recyclerView.adapter = adapter
 
-
-
         lifecycleScope.launch {
             viewModel.product.collectLatest { product ->
                 adapter.data = product

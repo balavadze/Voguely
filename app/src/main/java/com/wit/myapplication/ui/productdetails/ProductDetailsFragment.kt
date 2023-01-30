@@ -42,7 +42,6 @@ class ProductDetailsFragment : Fragment() {
 
                     binding.productDetailedDescription.text = product.description
 
-
                     Glide.with(requireContext())
                         .load(product.image)
                         .into(binding.productImage)

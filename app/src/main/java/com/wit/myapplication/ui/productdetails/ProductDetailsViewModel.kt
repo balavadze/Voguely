@@ -14,7 +14,6 @@ class ProductDetailsViewModel : ViewModel() {
 
     private var productDataSource = ProductDataSource()
     private var addToCartDataSource = AddToCartDataSource()
-
     var product = MutableStateFlow<Product?>(null)
 
 
@@ -31,5 +30,4 @@ class ProductDetailsViewModel : ViewModel() {
             }
         }
     }
-
 }

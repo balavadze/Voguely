@@ -10,7 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.wit.myapplication.databinding.FragmentCartBinding
-import com.wit.myapplication.model.Cart
+import com.wit.myapplication.model.Other
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -46,10 +46,10 @@ class CartFragment : Fragment() {
                 adapter.notifyDataSetChanged()
                 if (cart.isNotEmpty()) {
                     binding.cartItem.visibility = View.VISIBLE
+
                     binding.cartRibbon.visibility = View.VISIBLE
                     binding.sumPrice.text = "EUR  " + viewModel.getTotalPrice(cart).toString()
                     binding.emptyCart.visibility = View.GONE
-
                 }
                 else {
                     binding.emptyCart.visibility = View.VISIBLE
@@ -59,13 +59,12 @@ class CartFragment : Fragment() {
             }
         }
 
-
     }
 
 
 }
 
 
-private fun cart(cartItems: Cart) {
+private fun cart(cartItems: Other) {
 }
 
