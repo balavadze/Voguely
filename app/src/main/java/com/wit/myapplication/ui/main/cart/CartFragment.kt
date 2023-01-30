@@ -1,7 +1,7 @@
 package com.wit.myapplication.ui.main.cart
 
 import CartAdapter
-import DeleteFromCartDataSource
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -19,7 +19,6 @@ class CartFragment : Fragment() {
     private val adapter = CartAdapter(::cart)
     private lateinit var viewModel: CartViewModel
     private lateinit var binding: FragmentCartBinding
-    private val deleteFromCartDataSource = DeleteFromCartDataSource()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,11 +29,12 @@ class CartFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentCartBinding.inflate(inflater, container, false)
 
         return binding.root
     }
+    @SuppressLint("SetTextI18n", "NotifyDataSetChanged")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.cartItem.adapter = adapter
