@@ -14,9 +14,9 @@ class ProductDataSource {
                 .get()
                 .await()
 
-        val product = result.getValue(Product::class.java)
 
-        return product
+
+        return result.getValue(Product::class.java)
     }
 
 }

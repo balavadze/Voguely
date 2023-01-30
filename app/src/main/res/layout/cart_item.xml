@@ -16,47 +16,50 @@
             android:id="@+id/cartProduct"
             android:layout_width="140dp"
             android:layout_height="140dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="16dp"
             android:clickable="true"
             android:scaleType="centerCrop"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+
         <TextView
             android:id="@+id/cartDescription"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
-            android:textColor="@color/black"
-            android:textSize="18sp"
             android:layout_marginLeft="8dp"
             android:layout_marginTop="8dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/cartProduct"
-            app:layout_constraintTop_toBottomOf="@id/remove"
-            android:textStyle="bold" />
+            android:textAlignment="viewStart"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@id/cartProduct"
+            app:layout_constraintTop_toBottomOf="@id/remove" />
 
         <TextView
             android:id="@+id/cartPrice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
             android:layout_marginLeft="8dp"
+            android:layout_marginTop="16dp"
+            android:textAlignment="viewStart"
             android:textColor="@color/vivid_red_tangelo"
-            app:layout_constraintEnd_toEndOf="@id/cartDescription"
-            app:layout_constraintStart_toEndOf="@+id/cartProduct"
-            app:layout_constraintTop_toBottomOf="@id/cartDescription"
-            android:textSize="15sp" />
+            android:textSize="15sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@id/cartProduct"
+            app:layout_constraintTop_toBottomOf="@id/cartDescription" />
 
         <TextView
             android:id="@+id/cartAmount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:textColor="@color/vivid_red_tangelo"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/cartProduct"
-            app:layout_constraintTop_toBottomOf="@id/cartPrice"
-            android:textSize="15sp" />
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="16dp"
+            android:textColor="#C4C4C4"
+            android:textSize="15sp"
+            app:layout_constraintStart_toEndOf="@id/cartProduct"
+            app:layout_constraintTop_toBottomOf="@id/cartPrice" />
 
         <ImageView
             android:id="@+id/remove"
@@ -65,7 +68,6 @@
             android:src="@drawable/baseline_cancel_24"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-
             tools:layout_editor_absoluteX="330dp"
             tools:layout_editor_absoluteY="4dp" />
 

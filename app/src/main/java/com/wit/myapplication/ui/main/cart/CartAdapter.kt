@@ -1,14 +1,17 @@
-package com.wit.myapplication.ui.main.cart
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.wit.myapplication.databinding.CartItemBinding
+import com.wit.myapplication.model.Cart
+import com.wit.myapplication.model.Other
+import kotlin.reflect.KFunction1
 
-
-class CartAdapter(val onCartItemClick: (Cart) -> Unit) :
+class CartAdapter(val onCartItemClick: KFunction1<Cart, Unit>) :
     RecyclerView.Adapter<CartAdapter.ItemViewHolder>() {
-    var cartData: List<Cart> = listOf()
+    var cartData: List<Other> = listOf()
+    var totalPrice: Double = 0.0
 
     class ItemViewHolder(val binding: CartItemBinding) : RecyclerView.ViewHolder(binding.root)
 
@@ -20,15 +23,16 @@ class CartAdapter(val onCartItemClick: (Cart) -> Unit) :
     }
 
     override fun onBindViewHolder(holder: CartAdapter.ItemViewHolder, position: Int) {
-        val cartItems = cartData[position]
-       /* holder.binding.cartDescription.text = cartItems.cartDescription
-        holder.binding.cartPrice.text = cartItems.cartPrice
-        holder.binding.cartAmount.text = cartItems.amount
-        Glide.with(holder.itemView.context).load(cartItems.cartPhoto)
-            .into(holder.binding.cartProduct)
-        holder.itemView.setOnClickListener {
-            onCartItemClick(cartItems)
-        }*/
+        val cartItems = cartData.get(position)
+        if (cartData.isNotEmpty()) {
+            val fireData = cartData.get(position)
+            holder.binding.cartDescription.text = fireData.product.name.toString()
+            holder.binding.cartPrice.text = "EUR  " + fireData.product.price.toString()
+            holder.binding.cartAmount.text = "x " + fireData.quantity.toString()
+            Glide.with(holder.itemView.context)
+                .load(cartItems.product.image)
+                .into(holder.binding.cartProduct)
+        }
     }
 
     override fun getItemCount(): Int = cartData.size

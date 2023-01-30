@@ -9,8 +9,8 @@
 
     <TextView
         android:id="@+id/emptyCart"
-        android:layout_width="243dp"
-        android:layout_height="294dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:drawableTop="@drawable/ic__cart"
         android:gravity="center"
         android:text="Cart is Empty"
@@ -45,7 +45,9 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintEnd_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+
+        >
 
         <TextView
             android:id="@+id/totalPrice"
@@ -54,25 +56,25 @@
             android:gravity="center"
             android:padding="15dp"
             android:text="Total Price:"
+            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
             android:id="@+id/sumPrice"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="900 EUR"
             android:gravity="center"
             android:padding="15dp"
             android:textColor="@color/vivid_red_tangelo"
-            app:layout_constraintStart_toEndOf="@id/totalPrice" />
+            android:textStyle="bold"
 
+            app:layout_constraintStart_toEndOf="@id/totalPrice" />
         <Button
             android:id="@+id/buyButton"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:text="buy"
             android:gravity="center"
-
             app:layout_constraintEnd_toEndOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

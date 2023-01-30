@@ -1,5 +1,6 @@
 package com.wit.myapplication.ui.main.cart
 
+import CartAdapter
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.wit.myapplication.databinding.FragmentCartBinding
+import com.wit.myapplication.model.Cart
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -28,36 +30,37 @@ class CartFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentCartBinding.inflate(inflater, container, false)
+
+
         return binding.root
     }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.cartItem.adapter = adapter
+        viewModel.loadCartItems()
 
         lifecycleScope.launch {
-            viewModel.cartProducts.collectLatest { cart: List<Cart> ->
+            viewModel.cartProducts.collectLatest { cart ->
                 adapter.cartData = cart
                 adapter.notifyDataSetChanged()
-                if (cart.isEmpty()) {
-                    //TODO uncomment this line after data is added
-                    // binding.emptyCart.visibility = View.VISIBLE
-                }
-                else {
+                if (cart.isNotEmpty()) {
                     binding.cartItem.visibility = View.VISIBLE
                     binding.cartRibbon.visibility = View.VISIBLE
+                    binding.sumPrice.text = viewModel.getTotalPrice(cart).toString()
                     binding.emptyCart.visibility = View.GONE
-                    // update cart
-                    // viewModel.updateCart()
-                }
 
+                }
+                else {
+                    binding.emptyCart.visibility = View.VISIBLE
+                    binding.cartItem.visibility = View.GONE
+                    binding.cartRibbon.visibility = View.GONE
+                }
             }
         }
     }
 
+}
+
     private fun cart(cartItems: Cart) {
-/*        Cart.removeProduct(product)
-        viewModel.updateCart()*/
     }
 
-}
