@@ -4,8 +4,8 @@ import com.wit.myapplication.model.Cart
 import com.wit.myapplication.model.CartResponse
 import kotlinx.coroutines.tasks.await
 
-class QuantityAdjustment {
-    suspend fun quantityAdjustment(productId: String, isIncrement: Boolean) {
+class QuantityUpdate {
+    suspend fun quantityUpdate(productId: String, isIncrement: Boolean) {
         val database =
             FirebaseDatabase.getInstance("https://voguely-2512-default-rtdb.europe-west1.firebasedatabase.app/")
         val userId = FirebaseAuth.getInstance().currentUser?.uid ?: return

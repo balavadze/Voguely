@@ -14,7 +14,7 @@ import kotlinx.coroutines.withContext
 
 class CartAdapter(
     val onCartItemClick: (Other) -> Unit,
-    // val onDeleteButtonClick: (Other) -> Unit,
+    // val onDeleteButtonClick: (com.wit.myapplication.model.Other) -> Unit,
 ) :
     RecyclerView.Adapter<CartAdapter.ItemViewHolder>() {
     var cartData: List<Other> = listOf()
@@ -38,22 +38,24 @@ class CartAdapter(
             holder.binding.cartQuantityMinus.setOnClickListener {
                 Log.d("CartAdapter", "Minus button clicked")
                 GlobalScope.launch(Dispatchers.IO) {
-                    QuantityAdjustment().quantityAdjustment(
+                    QuantityUpdate().quantityUpdate(
                         productId = fireData.product.id, isIncrement = false
                     )
                     withContext(Dispatchers.Main) {
                         holder.binding.cartQuantity.text = fireData.quantity.toString()
+
                     }
                 }
             }
             holder.binding.cartQuantityPlus.setOnClickListener {
                 Log.d("CartAdapter", "Plus button clicked")
                 GlobalScope.launch(Dispatchers.IO) {
-                    QuantityAdjustment().quantityAdjustment(
+                    QuantityUpdate().quantityUpdate(
                         productId = fireData.product.id, isIncrement = true
                     )
                     withContext(Dispatchers.Main) {
                         holder.binding.cartQuantity.text = fireData.quantity.toString()
+
                     }
                 }
             }
@@ -64,11 +66,10 @@ class CartAdapter(
                     DeleteFromCartDataSource().deleteProductFromCart(productId = fireData.product.id)
                     withContext(Dispatchers.Main) {
                         cartData = cartData.filter { it.product.id != fireData.product.id }
-                        notifyDataSetChanged()
+
                     }
                 }
             })
-
 
             Glide.with(holder.itemView.context).load(cartItems.product.image)
                 .into(holder.binding.cartProduct)

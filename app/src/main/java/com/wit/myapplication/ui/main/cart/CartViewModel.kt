@@ -1,6 +1,7 @@
 package com.wit.myapplication.ui.main.cart
 
 import DeleteFromCartDataSource
+import QuantityUpdate
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -13,6 +14,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 
+
 class CartViewModel : ViewModel() {
     private val _cartProducts = MutableStateFlow<List<Other>>(emptyList())
     val cartProducts = _cartProducts.asStateFlow()
@@ -23,7 +25,8 @@ class CartViewModel : ViewModel() {
     private val getCartDataSource = GetCartDataSource()
 
     private var deleteFromCartDataSource = DeleteFromCartDataSource()
-    // private val removeFromCartDataSource = RemoveFromCartDataSource()
+
+    private var quantityUpdate = QuantityUpdate()
 
 
     fun loadCartItems() {
@@ -43,11 +46,11 @@ class CartViewModel : ViewModel() {
     fun deleteFromCart() {
         viewModelScope.launch(Dispatchers.IO) {
             cartProducts.value.let {
-
                 deleteFromCartDataSource.deleteProductFromCart(cartProducts.value.toString())
             }
-
         }
     }
 
+
 }
+

@@ -46,7 +46,6 @@ class CartFragment : Fragment() {
                 adapter.notifyDataSetChanged()
                 if (cart.isNotEmpty()) {
                     binding.cartItem.visibility = View.VISIBLE
-
                     binding.cartRibbon.visibility = View.VISIBLE
                     binding.sumPrice.text = "EUR  " + viewModel.getTotalPrice(cart).toString()
                     binding.emptyCart.visibility = View.GONE
