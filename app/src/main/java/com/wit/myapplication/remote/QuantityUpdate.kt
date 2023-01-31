@@ -32,7 +32,7 @@ class QuantityUpdate {
             quantityMinus?.let {
                 cartRef
                     .child(quantityMinus.key).child("quantity")
-                    .setValue(quantityMinus.cartResponse.quantity + 1)
+                    .setValue(quantityMinus.cartResponse.quantity - 1)
                     .await()
             }
         }
