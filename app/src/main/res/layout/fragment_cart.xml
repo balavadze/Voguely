@@ -9,19 +9,18 @@
 
     <TextView
         android:id="@+id/emptyCart"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="128dp"
         android:gravity="center"
         android:text="@string/cart_is_empty"
         android:textSize="22sp"
         android:visibility="invisible"
+        app:drawableTopCompat="@drawable/ic__cart"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
-        app:drawableTopCompat="@drawable/ic__cart" />
+        app:layout_constraintVertical_bias="0.499" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/cartItem"
@@ -37,15 +36,15 @@
         />
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cartRibbon"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/cartRibbon"
         android:layout_marginTop="60dp"
-        android:orientation="vertical"
         android:background="@color/ribbon"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintEnd_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
 
         >
@@ -68,23 +67,28 @@
             android:padding="15dp"
             android:textColor="@color/vivid_red_tangelo"
             android:textStyle="bold"
-
             app:layout_constraintStart_toEndOf="@id/totalPrice" />
 
         <Button
             android:id="@+id/buyButton"
             android:layout_width="77dp"
-            android:layout_height="48dp"
+            android:layout_height="35dp"
             android:layout_margin="8dp"
             android:background="@drawable/buy_button"
             android:text="@string/buy"
-            android:textColor="#3E2723"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="20dp" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -33,7 +33,7 @@ class CartAdapter(
             val fireData = cartData.get(position)
             holder.binding.cartDescription.text = fireData.product.name.toString()
             holder.binding.cartPrice.text = "EUR  " + fireData.product.price.toString()
-            holder.binding.cartAmount.text = "x " + fireData.quantity.toString()
+            holder.binding.cartQuantity.text = "x " + fireData.quantity.toString()
             holder.binding.deleteButton.setOnClickListener {
                 Log.d("CartAdapter", "Delete button clicked")
                 GlobalScope.launch(Dispatchers.IO) {
