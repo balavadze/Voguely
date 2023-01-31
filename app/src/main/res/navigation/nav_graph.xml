@@ -24,7 +24,7 @@
     </fragment>
     <fragment
         android:id="@+id/logInFragment"
-        android:name="com.wit.myapplication.ui.login.LogInFragment"
+        android:name="com.wit.myapplication.ui.loginSignOut.LogInFragment"
         android:label="fragment_log_in"
         tools:layout="@layout/fragment_log_in">
         <action
@@ -41,6 +41,9 @@
         <action
             android:id="@+id/action_mainFragment_to_productDetailsFragment"
             app:destination="@id/productDetailsFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_LogInFragment"
+            app:destination="@+id/logInFragment" />
     </fragment>
     <fragment
         android:id="@+id/productDetailsFragment"

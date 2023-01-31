@@ -1,4 +1,4 @@
-package com.wit.myapplication.ui.login
+package com.wit.myapplication.ui.loginSignOut
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -16,11 +16,6 @@ class LoginViewModel : ViewModel() {
 
     val _event = MutableSharedFlow<LoginEvent>()
 
-    // private val _errorMessage = MutableStateFlow("")
-    // val errorMessage: StateFlow<String> = _errorMessage.asStateFlow()
-
-    /*   private val _loginSuccessEvent = MutableStateFlow(false)
-     val loginSuccessEvent: StateFlow<Boolean> = _loginSuccessEvent.asStateFlow()*/
 
     private val _selectedTab = MutableStateFlow(SelectedTab.LOGIN)
     val selectedTab: StateFlow<SelectedTab> = _selectedTab.asStateFlow()
@@ -75,4 +70,7 @@ class LoginViewModel : ViewModel() {
         }
 
     }
+
+
 }
+
