@@ -50,6 +50,19 @@
             app:layout_constraintStart_toEndOf="@id/cartProduct"
             app:layout_constraintTop_toBottomOf="@id/cartDescription" />
 
+        <ImageView
+            android:id="@+id/cartQuantityMinus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="16dp"
+            android:clickable="true"
+            android:src="@drawable/quantity_minus"
+            android:textColor="#C4C4C4"
+            android:textSize="15sp"
+            app:layout_constraintStart_toEndOf="@id/cartProduct"
+            app:layout_constraintTop_toBottomOf="@id/cartPrice" />
+
         <TextView
             android:id="@+id/cartQuantity"
             android:layout_width="wrap_content"
@@ -58,7 +71,22 @@
             android:layout_marginTop="16dp"
             android:textColor="#C4C4C4"
             android:textSize="15sp"
-            app:layout_constraintStart_toEndOf="@id/cartProduct"
+            app:layout_constraintStart_toEndOf="@id/cartQuantityMinus"
+            app:layout_constraintTop_toBottomOf="@id/cartPrice"
+
+            />
+
+        <ImageView
+            android:id="@+id/cartQuantityPlus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="16dp"
+            android:clickable="true"
+            android:src="@drawable/quantity_plus"
+            android:textColor="#C4C4C4"
+            android:textSize="15sp"
+            app:layout_constraintStart_toEndOf="@id/cartQuantity"
             app:layout_constraintTop_toBottomOf="@id/cartPrice" />
 
         <ImageView

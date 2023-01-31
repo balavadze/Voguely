@@ -43,14 +43,7 @@ class SearchFragment : Fragment() {
         lifecycleScope.launch {
             viewModel.searchedProducts.collectLatest { product ->
                 adapter.data = product
-
                 adapter.notifyDataSetChanged()
-                /*  if (product.isEmpty()) {
-
-                } else {
-                    binding.searchRecycler.visibility = View.VISIBLE
-                    binding.noResults.visibility = View.GONE
-                }*/
             }
         }
 

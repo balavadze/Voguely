@@ -1,6 +1,7 @@
 
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -33,8 +34,31 @@ class CartAdapter(
             val fireData = cartData.get(position)
             holder.binding.cartDescription.text = fireData.product.name.toString()
             holder.binding.cartPrice.text = "EUR  " + fireData.product.price.toString()
-            holder.binding.cartQuantity.text = "x " + fireData.quantity.toString()
-            holder.binding.deleteButton.setOnClickListener {
+            holder.binding.cartQuantity.text = fireData.quantity.toString()
+            holder.binding.cartQuantityMinus.setOnClickListener {
+                Log.d("CartAdapter", "Minus button clicked")
+                GlobalScope.launch(Dispatchers.IO) {
+                    QuantityAdjustment().quantityAdjustment(
+                        productId = fireData.product.id, isIncrement = false
+                    )
+                    withContext(Dispatchers.Main) {
+                        holder.binding.cartQuantity.text = fireData.quantity.toString()
+                    }
+                }
+            }
+            holder.binding.cartQuantityPlus.setOnClickListener {
+                Log.d("CartAdapter", "Plus button clicked")
+                GlobalScope.launch(Dispatchers.IO) {
+                    QuantityAdjustment().quantityAdjustment(
+                        productId = fireData.product.id, isIncrement = true
+                    )
+                    withContext(Dispatchers.Main) {
+                        holder.binding.cartQuantity.text = fireData.quantity.toString()
+                    }
+                }
+            }
+
+            holder.binding.deleteButton.setOnClickListener(View.OnClickListener {
                 Log.d("CartAdapter", "Delete button clicked")
                 GlobalScope.launch(Dispatchers.IO) {
                     DeleteFromCartDataSource().deleteProductFromCart(productId = fireData.product.id)
@@ -43,9 +67,10 @@ class CartAdapter(
                         notifyDataSetChanged()
                     }
                 }
-            }
-            Glide.with(holder.itemView.context)
-                .load(cartItems.product.image)
+            })
+
+
+            Glide.with(holder.itemView.context).load(cartItems.product.image)
                 .into(holder.binding.cartProduct)
         }
     }
