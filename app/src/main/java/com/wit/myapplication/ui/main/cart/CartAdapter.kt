@@ -43,6 +43,7 @@ class CartAdapter(
                     )
                     withContext(Dispatchers.Main) {
                         holder.binding.cartQuantity.text = fireData.quantity.toString()
+                        notifyDataSetChanged()
 
                     }
                 }
@@ -52,9 +53,11 @@ class CartAdapter(
                 GlobalScope.launch(Dispatchers.IO) {
                     QuantityUpdate().quantityUpdate(
                         productId = fireData.product.id, isIncrement = true
+
                     )
                     withContext(Dispatchers.Main) {
                         holder.binding.cartQuantity.text = fireData.quantity.toString()
+                        notifyDataSetChanged()
 
                     }
                 }
@@ -66,7 +69,7 @@ class CartAdapter(
                     DeleteFromCartDataSource().deleteProductFromCart(productId = fireData.product.id)
                     withContext(Dispatchers.Main) {
                         cartData = cartData.filter { it.product.id != fireData.product.id }
-
+                        notifyDataSetChanged()
                     }
                 }
             })
