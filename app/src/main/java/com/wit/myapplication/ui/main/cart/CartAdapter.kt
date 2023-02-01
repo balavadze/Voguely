@@ -1,81 +1,52 @@
-
 import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.wit.myapplication.databinding.CartItemBinding
-import com.wit.myapplication.model.Other
+import com.wit.myapplication.model.QuantityProduct
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class CartAdapter(
-    val onCartItemClick: (Other) -> Unit,
-    // val onDeleteButtonClick: (com.wit.myapplication.model.Other) -> Unit,
+    private val onDeleteButtonClick: (QuantityProduct) -> Unit,
+    private val onIncrementClicked: (QuantityProduct) -> Unit,
+    private val onDecrementClicked: (QuantityProduct) -> Unit,
 ) :
     RecyclerView.Adapter<CartAdapter.ItemViewHolder>() {
-    var cartData: List<Other> = listOf()
+
+    var cartData: List<QuantityProduct> = listOf()
 
     class ItemViewHolder(val binding: CartItemBinding) : RecyclerView.ViewHolder(binding.root)
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CartAdapter.ItemViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
         val binding = CartItemBinding.inflate(
             LayoutInflater.from(parent.context), parent, false
         )
-        return CartAdapter.ItemViewHolder(binding)
+        return ItemViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: CartAdapter.ItemViewHolder, position: Int) {
-        val cartItems = cartData.get(position)
-        if (cartData.isNotEmpty()) {
-            val fireData = cartData.get(position)
-            holder.binding.cartDescription.text = fireData.product.name.toString()
-            holder.binding.cartPrice.text = "EUR  " + fireData.product.price.toString()
-            holder.binding.cartQuantity.text = fireData.quantity.toString()
-            holder.binding.cartQuantityMinus.setOnClickListener {
-                Log.d("CartAdapter", "Minus button clicked")
-                GlobalScope.launch(Dispatchers.IO) {
-                    QuantityUpdate().quantityUpdate(
-                        productId = fireData.product.id, isIncrement = false
-                    )
-                    withContext(Dispatchers.Main) {
-                        holder.binding.cartQuantity.text = fireData.quantity.toString()
-                        notifyDataSetChanged()
+    override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
+        val cartItem = cartData[position]
+        val fireData = cartData.get(position)
+        holder.binding.cartDescription.text = fireData.product.name
+        holder.binding.cartPrice.text = "EUR  ${fireData.product.price}"
+        holder.binding.cartQuantity.text = fireData.quantity.toString()
+        Glide.with(holder.itemView.context)
+            .load(cartItem.product.image)
+            .into(holder.binding.cartProduct)
 
-                    }
-                }
-            }
-            holder.binding.cartQuantityPlus.setOnClickListener {
-                Log.d("CartAdapter", "Plus button clicked")
-                GlobalScope.launch(Dispatchers.IO) {
-                    QuantityUpdate().quantityUpdate(
-                        productId = fireData.product.id, isIncrement = true
+        holder.binding.cartQuantityMinus.setOnClickListener {
+            onDecrementClicked.invoke(cartItem)
+        }
+        holder.binding.cartQuantityPlus.setOnClickListener {
+            onIncrementClicked.invoke(cartItem)
+        }
 
-                    )
-                    withContext(Dispatchers.Main) {
-                        holder.binding.cartQuantity.text = fireData.quantity.toString()
-                        notifyDataSetChanged()
-
-                    }
-                }
-            }
-
-            holder.binding.deleteButton.setOnClickListener(View.OnClickListener {
-                Log.d("CartAdapter", "Delete button clicked")
-                GlobalScope.launch(Dispatchers.IO) {
-                    DeleteFromCartDataSource().deleteProductFromCart(productId = fireData.product.id)
-                    withContext(Dispatchers.Main) {
-                        cartData = cartData.filter { it.product.id != fireData.product.id }
-                        notifyDataSetChanged()
-                    }
-                }
-            })
-
-            Glide.with(holder.itemView.context).load(cartItems.product.image)
-                .into(holder.binding.cartProduct)
+        holder.binding.deleteButton.setOnClickListener {
+            onDeleteButtonClick.invoke(cartItem)
         }
     }
 

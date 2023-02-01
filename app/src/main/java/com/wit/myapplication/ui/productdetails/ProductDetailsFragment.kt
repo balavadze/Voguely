@@ -14,6 +14,13 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 class ProductDetailsFragment : Fragment() {
+
+    companion object {
+
+        const val PRODUCT_ID_ARG = "PRODUCT_ID_ARG"
+
+    }
+
     private lateinit var viewModel: ProductDetailsViewModel
     private lateinit var binding: ProductDetailsBinding
     override fun onCreate(savedInstanceState: Bundle?) {

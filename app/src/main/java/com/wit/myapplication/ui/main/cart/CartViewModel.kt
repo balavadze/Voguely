@@ -1,11 +1,10 @@
 package com.wit.myapplication.ui.main.cart
 
 import DeleteFromCartDataSource
-import QuantityUpdate
-import android.util.Log
+import QuantityUpdateDataSource
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.wit.myapplication.model.Other
+import com.wit.myapplication.model.QuantityProduct
 import com.wit.myapplication.remote.GetCartDataSource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -14,9 +13,8 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 
-
 class CartViewModel : ViewModel() {
-    private val _cartProducts = MutableStateFlow<List<Other>>(emptyList())
+    private val _cartProducts = MutableStateFlow<List<QuantityProduct>>(emptyList())
     val cartProducts = _cartProducts.asStateFlow()
 
     private val _noItemsInCart = MutableStateFlow(false)
@@ -26,7 +24,7 @@ class CartViewModel : ViewModel() {
 
     private var deleteFromCartDataSource = DeleteFromCartDataSource()
 
-    private var quantityUpdate = QuantityUpdate()
+    private var quantityUpdateDataSource = QuantityUpdateDataSource()
 
 
     fun loadCartItems() {
@@ -37,18 +35,30 @@ class CartViewModel : ViewModel() {
         }
     }
 
-    fun getTotalPrice(other: List<Other>): Int {
-        val getTotalPrice = other.sumBy { it.quantity * it.product.price }
-        Log.d("CartViewModel", "Total price: $getTotalPrice")
-        return getTotalPrice
+    fun getTotalPrice(quantityProduct: List<QuantityProduct>): Int {
+        return quantityProduct.sumOf { it.quantity * it.product.price }
     }
 
-    fun deleteFromCart() {
+    fun deleteFromCart(quantityProduct: QuantityProduct) {
         viewModelScope.launch(Dispatchers.IO) {
-            cartProducts.value.let {
-                deleteFromCartDataSource.deleteProductFromCart(cartProducts.value.toString())
-            }
+            deleteFromCartDataSource.deleteProductFromCart(quantityProduct.product.id)
+            loadCartItems()
         }
     }
+
+    fun increment(quantityProduct: QuantityProduct){
+        viewModelScope.launch(Dispatchers.IO) {
+            quantityUpdateDataSource.quantityUpdate(productId = quantityProduct.product.id, isIncrement = true)
+            loadCartItems()
+        }
+    }
+
+    fun decrement(quantityProduct: QuantityProduct){
+        viewModelScope.launch(Dispatchers.IO) {
+            quantityUpdateDataSource.quantityUpdate(productId = quantityProduct.product.id, isIncrement = false)
+            loadCartItems()
+        }
+    }
+
 
 }

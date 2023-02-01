@@ -18,18 +18,15 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import com.google.firebase.auth.FirebaseAuth
 
-
-
 class LogInFragment : Fragment() {
+
     private lateinit var binding: FragmentLogInBinding
     lateinit var viewModel: LoginViewModel
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel = ViewModelProvider(this)[LoginViewModel::class.java]
     }
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,16 +36,14 @@ class LogInFragment : Fragment() {
         return binding.root
     }
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         lifecycleScope.launch {
-
             viewModel.selectedTab.collectLatest { selectedTab -> setSelectedTabText(selectedTab) }
-
         }
-        lifecycleScope.launch {
-            viewModel._event.collectLatest { event -> setEvent(event) }
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.event.collectLatest { event -> setEvent(event) }
         }
 
         binding.tabLayout.addOnTabSelectedListener(object : OnTabSelectedListener {
@@ -88,8 +83,8 @@ class LogInFragment : Fragment() {
     }
 
     private fun setSelectedTabText(selectedTab: SelectedTab) {
-        binding.welcome.setText(if (selectedTab == SelectedTab.LOGIN) R.string.welcome_back else R.string.join)
-        binding.logInButton.setText(if (selectedTab == SelectedTab.SIGN_UP) R.string.sign_up else R.string.login)
+        binding.welcome.setText(selectedTab.welcomeMessage)
+        binding.logInButton.setText(selectedTab.buttonText)
     }
 }
 

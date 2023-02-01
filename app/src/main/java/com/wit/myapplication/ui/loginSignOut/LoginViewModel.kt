@@ -3,19 +3,17 @@ package com.wit.myapplication.ui.loginSignOut
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.auth.*
-import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 
 
 class LoginViewModel : ViewModel() {
+
     private val auth = FirebaseAuth.getInstance()
 
-    val _event = MutableSharedFlow<LoginEvent>()
-
+    private val _event = MutableSharedFlow<LoginEvent>()
+    val event = _event.asSharedFlow()
 
     private val _selectedTab = MutableStateFlow(SelectedTab.LOGIN)
     val selectedTab: StateFlow<SelectedTab> = _selectedTab.asStateFlow()
@@ -23,7 +21,6 @@ class LoginViewModel : ViewModel() {
     fun onSelectedTabChanged(selectedTab: SelectedTab) {
         viewModelScope.launch {
             _selectedTab.value = selectedTab
-
         }
     }
 

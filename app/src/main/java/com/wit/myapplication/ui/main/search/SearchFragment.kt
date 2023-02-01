@@ -15,14 +15,16 @@ import com.wit.myapplication.R
 import com.wit.myapplication.databinding.FragmentSearchBinding
 import com.wit.myapplication.model.Product
 import com.wit.myapplication.ui.main.home.ProductAdapter
+import com.wit.myapplication.ui.productdetails.ProductDetailsFragment.Companion.PRODUCT_ID_ARG
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 class SearchFragment : Fragment() {
-    private val adapter = ProductAdapter(::onProductClick, ::onDotsClick)
+
     private lateinit var viewModel: SearchViewModel
     private lateinit var binding: FragmentSearchBinding
 
+    private val adapter = ProductAdapter(::onProductClick, ::onDotsClick)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -86,7 +88,7 @@ class SearchFragment : Fragment() {
 
     private fun onProductClick(product: Product) {
         val bundle = Bundle().apply {
-            putString("PRODUCT_ID_ARG", product.id)
+            putString(PRODUCT_ID_ARG, product.id)
         }
         parentFragment
             ?.parentFragment
@@ -102,8 +104,6 @@ class SearchFragment : Fragment() {
         popupMenu.setOnMenuItemClickListener {
             viewModel.addToCart(product.id)
             return@setOnMenuItemClickListener false
-
         }
-
     }
 }

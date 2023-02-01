@@ -25,18 +25,16 @@ class SplashFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.logo.animate().alpha(1F).setDuration(3000)
-
+        binding.logo.animate()
+            .alpha(1F)
+            .setDuration(3000)
             .withEndAction {
                 val user = Firebase.auth.currentUser
                 if (user == null) {
                     findNavController().navigate(R.id.action_splashFragment_to_logInFragment)
-                }
-                else {
-                    val action = (R.id.action_splashFragment_to_logInFragment)
+                } else {
                     findNavController().navigate(R.id.action_splashFragment_to_mainFragment)
                 }
-
             }
     }
 }

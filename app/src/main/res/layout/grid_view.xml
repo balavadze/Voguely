@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/gridView"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -14,11 +15,7 @@
         <ImageView
             android:id="@+id/product"
             android:layout_width="match_parent"
-            android:clickable="true"
-
             android:layout_height="160dp"
-            android:scaleType="centerCrop"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
@@ -30,7 +27,8 @@
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/product" />
+            app:layout_constraintTop_toBottomOf="@+id/product"
+            tools:text="Title" />
 
         <TextView
             android:id="@+id/product_price"
@@ -40,8 +38,8 @@
             android:textColor="@color/vivid_red_tangelo"
             android:textSize="15sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/product_description" />
-
+            app:layout_constraintTop_toBottomOf="@+id/product_description"
+            tools:text="EUR 120" />
 
         <TextView
             android:id="@+id/product_rating"

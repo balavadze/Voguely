@@ -1,6 +1,5 @@
 package com.wit.myapplication.ui.main.home
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,8 +12,8 @@ import com.wit.myapplication.model.Product
 class ProductAdapter(
     val onProductClick: (Product) -> Unit,
     var onDotsClick: (Product, View) -> Unit
-) :
-    RecyclerView.Adapter<ProductAdapter.ItemViewHolder>() {
+) : RecyclerView.Adapter<ProductAdapter.ItemViewHolder>() {
+
     var data: List<Product> = listOf()
 
     class ItemViewHolder(val binding: GridViewBinding) :
@@ -30,21 +29,17 @@ class ProductAdapter(
     }
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
-        val product = data.get(position)
+        val product = data[position]
         holder.binding.productDescription.text = product.name
-        holder.binding.productPrice.text = "EUR  " + product.price.toString()
+        holder.binding.productPrice.text = "${product.currency} ${product.price}"
         holder.binding.productRating.text = product.rating.toString()
         holder.binding.productReview.text = product.reviews.toString()
-        holder.binding.dots.setOnClickListener { onDotsClick(product, it) }
         Glide.with(holder.itemView.context)
             .load(product.image)
             .into(holder.binding.product)
-        holder.itemView.setOnClickListener {
-            onProductClick(product)
-            Log.d("TAG", "onProductClick called for product: ${product.name}")
-        }
+        holder.itemView.setOnClickListener { onProductClick(product) }
+        holder.binding.dots.setOnClickListener { onDotsClick(product, it) }
     }
-
 
     override fun getItemCount(): Int = data.size
 }

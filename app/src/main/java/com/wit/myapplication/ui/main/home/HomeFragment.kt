@@ -11,18 +11,20 @@ import androidx.navigation.fragment.findNavController
 import com.wit.myapplication.R
 import com.wit.myapplication.databinding.FragmentHomeBinding
 import com.wit.myapplication.model.Product
+import com.wit.myapplication.ui.productdetails.ProductDetailsFragment.Companion.PRODUCT_ID_ARG
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 class HomeFragment : Fragment() {
-    private val adapter = ProductAdapter(::onProductClick, ::onDotsClick)
+
     private lateinit var viewModel: HomeViewModel
     private lateinit var binding: FragmentHomeBinding
+
+    private val adapter = ProductAdapter(::onProductClick, ::onDotsClick)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel = ViewModelProvider(this)[HomeViewModel::class.java]
-
     }
 
     override fun onCreateView(
@@ -35,14 +37,12 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.recyclerView.adapter = adapter
-
         lifecycleScope.launch {
             viewModel.product.collectLatest { product ->
                 adapter.data = product
                 adapter.notifyDataSetChanged()
             }
         }
-
     }
 
     private fun onDotsClick(product: Product, view: View) {
@@ -53,15 +53,13 @@ class HomeFragment : Fragment() {
         popupMenu.setOnMenuItemClickListener {
             viewModel.addToCart(product.id)
             return@setOnMenuItemClickListener false
-
         }
-
     }
 
 
     private fun onProductClick(product: Product) {
         val bundle = Bundle().apply {
-            putString("PRODUCT_ID_ARG", product.id)
+            putString(PRODUCT_ID_ARG, product.id)
         }
         parentFragment
             ?.parentFragment

@@ -7,13 +7,16 @@ import com.wit.myapplication.remote.AddToCartDataSource
 import com.wit.myapplication.remote.ProductsDataSource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 class HomeViewModel : ViewModel() {
     var productsDataSource = ProductsDataSource()
     private var addToCartDataSource = AddToCartDataSource()
-    var product = MutableStateFlow<List<Product>>(emptyList())
+
+    var _product = MutableStateFlow<List<Product>>(emptyList())
+    var product = _product.asStateFlow()
 
 
     init {
@@ -22,18 +25,10 @@ class HomeViewModel : ViewModel() {
 
     private fun loadProducts() {
         viewModelScope.launch {
-            product.update { productsDataSource.getProducts() }
-
+            _product.update { productsDataSource.getProducts() }
         }
     }
 
-    fun fetchProduct(): MutableList<Product> {
-        val product = mutableListOf<Product>()
-        viewModelScope.launch {
-        }
-        // code to fetch data
-        return product
-    }
 
     fun addToCart(productId: String) {
         viewModelScope.launch(Dispatchers.IO) {
