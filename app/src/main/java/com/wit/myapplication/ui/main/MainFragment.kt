@@ -29,6 +29,14 @@ class MainFragment : Fragment() {
         super.onCreateOptionsMenu(menu, inflater)
     }
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.tv_sign_out) {
+            // signOutFromApp()
+            return true
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val navHostFragment =
@@ -36,8 +44,10 @@ class MainFragment : Fragment() {
         val navController = navHostFragment.findNavController()
         binding.bottomNavigationView.setupWithNavController(navController)
     }
+/*    private fun signOutFromApp() {
+        FirebaseAuth.getInstance().signOut()
+        Toast.makeText(ContentProviderCompat.requireContext(), "Now you are signed out", Toast.LENGTH_SHORT).show()
+        NavHostFragment.findNavController().navigate(R.id.action_mainFragment_to_LogInFragment)
+    }*/
 }
 
-private fun signOutFromApp() {
-
-}
