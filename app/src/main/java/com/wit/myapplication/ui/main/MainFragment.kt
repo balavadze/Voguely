@@ -9,6 +9,7 @@ import androidx.navigation.ui.setupWithNavController
 import com.wit.myapplication.R
 import com.wit.myapplication.databinding.FragmentMainBinding
 
+
 @Suppress("DEPRECATION")
 class MainFragment : Fragment() {
     private lateinit var binding: FragmentMainBinding
@@ -29,12 +30,15 @@ class MainFragment : Fragment() {
         super.onCreateOptionsMenu(menu, inflater)
     }
 
+    @Deprecated("Deprecated in Java")
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == R.id.tv_sign_out) {
-            // signOutFromApp()
-            return true
+        return when (item.itemId) {
+            R.id.tv_sign_out -> {
+                // signOutFromApp()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
         }
-        return super.onOptionsItemSelected(item)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -44,10 +48,17 @@ class MainFragment : Fragment() {
         val navController = navHostFragment.findNavController()
         binding.bottomNavigationView.setupWithNavController(navController)
     }
-/*    private fun signOutFromApp() {
-        FirebaseAuth.getInstance().signOut()
-        Toast.makeText(ContentProviderCompat.requireContext(), "Now you are signed out", Toast.LENGTH_SHORT).show()
-        NavHostFragment.findNavController().navigate(R.id.action_mainFragment_to_LogInFragment)
-    }*/
-}
 
+/*    private fun signOutFromApp() {
+        val task = FirebaseAuth.getInstance().signOut()
+        task.addOnSuccessListener {
+            Toast.makeText(activity, "Now you are signed out.", Toast.LENGTH_SHORT).show()
+            val navController = findNavController()
+            navController.navigate(R.id.action_mainFragment_to_LogInFragment)
+        }
+        task.addOnFailureListener {
+            Toast.makeText(activity, "Sign out failed.", Toast.LENGTH_SHORT).show()
+        }
+    }*/
+
+}

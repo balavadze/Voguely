@@ -16,6 +16,8 @@ import com.wit.myapplication.R
 import com.wit.myapplication.databinding.FragmentLogInBinding
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import com.google.firebase.auth.FirebaseAuth
+
 
 
 class LogInFragment : Fragment() {
