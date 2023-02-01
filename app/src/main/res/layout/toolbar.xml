@@ -11,20 +11,19 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-
+        android:textSize="10dp"
         app:title="" />
 
     <TextView
         android:id="@+id/tv_sign_out"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:clickable="true"
         android:layout_margin="15dp"
-        android:textAllCaps="true"
         android:text="@string/sign_out"
+        android:textAllCaps="true"
         android:textColor="@color/black"
-        android:textSize="10dp"
-        app:layout_constraintEnd_toEndOf="@id/toolbar"
+        android:textSize="15dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/toolbar" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

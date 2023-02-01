@@ -22,3 +22,4 @@ class SignOutViewModel : ViewModel() {
 
     }
 }
+
