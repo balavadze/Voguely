@@ -1,4 +1,4 @@
-package com.wit.myapplication.ui.login
+package com.wit.myapplication.ui.loginSignOut
 
 
 import android.os.Bundle
@@ -20,7 +20,7 @@ import kotlinx.coroutines.launch
 
 class LogInFragment : Fragment() {
     private lateinit var binding: FragmentLogInBinding
-    private lateinit var viewModel: LoginViewModel
+    lateinit var viewModel: LoginViewModel
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -91,52 +91,3 @@ class LogInFragment : Fragment() {
     }
 }
 
-
-///
-
-
-//TODO in case you need to enter app without authentication - findNavController().navigate(R.id.action_logInFragment_to_mainFragment)
-
-
-// val isLoginTabSelected = binding.tabLayout.getTabAt(0)?.isSelected ?: false
-
-/* if (isLoginTabSelected) {
-     viewModel.logIn(email, password)
-         .addOnCompleteListener { task ->
-             if (task.isSuccessful) {
-                 //TODO here navigation component but, user specified ???
-                 findNavController().navigate(R.id.action_logInFragment_to_mainFragment)
-             }
-             else {
-                 // TODO SOME MESSAGE OR SCREEN TRY AGAIN
-             }
-         }
-
- } else {
-     viewModel.signUp(email, password)
- }*/
-
-/*if (isLoginTabSelected) {
-           auth.signInWithEmailAndPassword(email, password)
-               .addOnCompleteListener { task ->
-                   if (task.isSuccessful) {
-                       //TODO here navigation component but, user specified ???
-                       findNavController().navigate(R.id.action_logInFragment_to_mainFragment)
-                   }
-                   else {
-                       // TODO SOME MESSAGE OR SCREEN TRY AGAIN
-                   }
-               }
-       }
-       else {
-           auth.createUserWithEmailAndPassword(email, password)
-               .addOnCompleteListener { task ->
-                   if (task.isSuccessful) {
-                       //TODO UI TO MAIN SCREEN
-                       findNavController().navigate(R.id.action_logInFragment_to_mainFragment)
-                   }
-                   else {
-
-                   }
-               }
-       }*/

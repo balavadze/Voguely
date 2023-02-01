@@ -1,9 +1,7 @@
 package com.wit.myapplication.ui.main
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
@@ -11,21 +9,32 @@ import androidx.navigation.ui.setupWithNavController
 import com.wit.myapplication.R
 import com.wit.myapplication.databinding.FragmentMainBinding
 
+@Suppress("DEPRECATION")
 class MainFragment : Fragment() {
     private lateinit var binding: FragmentMainBinding
 
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
+        savedInstanceState: Bundle?,
+    ): View {
+        setHasOptionsMenu(true)
         binding = FragmentMainBinding.inflate(inflater, container, false)
         return binding.root
+    }
+
+    @Deprecated("Deprecated in Java")
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.toolbar, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.tv_sign_out) {
+            // signOutFromApp()
+            return true
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -34,8 +43,11 @@ class MainFragment : Fragment() {
             childFragmentManager.findFragmentById(R.id.mainNavHostFragment) as NavHostFragment
         val navController = navHostFragment.findNavController()
         binding.bottomNavigationView.setupWithNavController(navController)
-
-
     }
-
+/*    private fun signOutFromApp() {
+        FirebaseAuth.getInstance().signOut()
+        Toast.makeText(ContentProviderCompat.requireContext(), "Now you are signed out", Toast.LENGTH_SHORT).show()
+        NavHostFragment.findNavController().navigate(R.id.action_mainFragment_to_LogInFragment)
+    }*/
 }
+

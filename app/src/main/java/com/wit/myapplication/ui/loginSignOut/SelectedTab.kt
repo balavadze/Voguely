@@ -1,4 +1,4 @@
-package com.wit.myapplication.ui.login
+package com.wit.myapplication.ui.loginSignOut
 
 import com.wit.myapplication.R
 
