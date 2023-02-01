@@ -32,7 +32,7 @@ class ProductAdapter(
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         val product = data.get(position)
         holder.binding.productDescription.text = product.name
-        holder.binding.productPrice.text = product.price.toString()
+        holder.binding.productPrice.text = "EUR  " + product.price.toString()
         holder.binding.productRating.text = product.rating.toString()
         holder.binding.productReview.text = product.reviews.toString()
         holder.binding.dots.setOnClickListener { onDotsClick(product, it) }
